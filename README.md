@@ -1,1 +1,1 @@
-# data_sci
+# repository for all things data science
