@@ -1,0 +1,447 @@
+---
+output:
+  xaringan::moon_reader:
+  seal: false
+---
+
+.pull-right[
+# Introduction to R 
+    Hannah Coyle 
+    20th August 2020
+    ECIMH Professional Development Session]
+
+<center><img src="images/welcome_to_R.jpeg" height="400px" /></center>
+.pull-right[@allison.horst]
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,fig.align="center")
+
+setwd("~/Documents/Data Science/R/Intro_Pres")
+
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png)      # For grabbing the dimensions of png files
+library(xaringan) # For pretty slides
+library(magrittr) # For the pipe
+library(kableExtra) # For tables
+library(tidyverse)
+library(knitr)
+```
+
+
+## Introduction to R
+- There are so many cool things you can do
+
+- Today is not an exhaustive list, more about dipping your toes in the water
+
+- Won't be a deep dive into *how* to use R, more *what* you can use it for
+
+- Hopefully once inspired you will be motivated to go out on your own 
+
+.center[
+![](https://media.giphy.com/media/LUIvcbR6yytz2/giphy.gif)
+]
+
+---
+## Lets start at the very beginning...
+- *R* is the language *R Studio* is the IDE 
+ 
+- It is open-source (i.e. free) and available at http://www.rstudio.com/
+
+<center><img src="./images/rstudio_ed.jpeg" height="450px" width="650px" /></center>
+
+
+---
+## A quick look see
+<center><img src="images/rstudio.jpeg" height="450px" width="650px" /></center>
+- To learn how to navigate R studio I think the best place to start is this video (https://rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/)
+
+---
+## Packages
+- The real power of R comes through it's packages
+
+- Packages are fundamental units of reproducible R code. 
+
+- They include reusable R functions, the documentation that describes how to use them, and sample data
+
+
+<center><img src="images/R_packages.jpeg" height="250px" width="500px"/></center>
+
+- Step 1: Look on CRAN (https://cran.r-project.org/)
+- Step 2: See if the author wrote a package vignette
+- Step 3: Google it (always your friend!)
+
+---
+## Tidyverse
+- The Tidyverse is created by Hadley Wickham ( R Pirate Captain!)
+- Collection of packages designed with the sole purpose of making your life easier.
+
+```{r intro to packages, eval=FALSE}
+
+install.packages("tidyverse")
+library (tidyverse)
+
+```
+
+The goal of tidyr is to help you create tidy data. Tidy data is data where:
+
+- Every column is variable.
+- Every row is an observation.
+- Every cell is a single value.
+
+<center><img src="images/data_struc.jpeg" height="250px" width="500px"/></center>
+
+---
+## Data types and structure
+
+- Everything in R is an object.
+
+<center><img src="images/data_type.jpeg" height="350px" width="500px"/></center>
+- Lots of useful functions to check what you are working with
+  + class() - what kind of object is it (high-level)?
+  + typeof() - what is the object’s data type (low-level)?
+  + length() - how long is it? What about two dimensional objects?
+  + attributes() - does it have any metadata?
+
+---
+## Import your data
+- R can import data from lots of existing formats
+  + **haven** for SPSS, Stata, and SAS data.
+  + **httr** for web APIs.
+  + **readxl** for .xls and .xlsx sheets.
+  + **rvest** for web scraping.
+  + **jsonlite** for JSON. 
+
+- Once in R, it is called a dataframe 
+<center><img src="images/data_frame1.jpeg" height="300px" width="550px" /></center>
+
+---
+
+## Wrangle your data
+- No matter how much effort we put into database design the nature of data is that it is often messy
+
+- The tidyverse includes packages specifically designed to help with the job 
+
+  + lubridate for dates and date-times.
+  + stringr for working with strings
+  + forcats for working with categorical variables
+  + hms for time-of-day values.
+
+- Helps clean/organise your data into the right format prior to plotting/analysis
+.center[
+![](https://media.giphy.com/media/z5fNH8BMbeDN6/giphy.gif)
+]
+
+---
+
+# Wrangle your data (cont)...
+- It's likely you will be working with a big dataset
+
+```{r, eval=TRUE, echo=FALSE}
+load("~/Documents/PHD-Data-Analysis/PHD-Data-Analysis/Analysis/Data/COMBINED_COG_PhD.Rdata")
+```
+
+```{r, eval= TRUE, echo=FALSE}
+#knitr::kable(COMBINED_COG_PhD[1:12, 1:10], "html")
+
+dim(COMBINED_COG_PhD)
+
+df<-glimpse(COMBINED_COG_PhD)
+
+knitr::kable(df[1:12, 1:10], "html")
+```
+---
+
+# So dplyr is your best of friends
+
+<center><img src="images/dplyr.jpeg" height="500px" width="650px" /></center>
+
+---
+
+# For example...
+
+- Say I wan't to look at just the mTBI participants
+```{r}
+COMBINED_COG_PhD %>%
+  dplyr::filter(group=="mtbi") %>%
+  dplyr::select(code, age, sex, education) %>%
+  knitr::kable("html")
+```
+
+---
+# dplyr (cont)..
+
+<center><img src="images/dplyr_2.jpeg" height="550px" width="700px" /></center>
+
+https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+
+---
+
+## Explore your data
+- ggplot2 is a **magical** graphics package specifically built to help you iteratively create customized graphs.
+
+<center><img src="images/ggplot2_exploratory_1.jpeg" height="400px" width="550px" /></center>
+.pull-right[@allison.horst]
+---
+
+## The *plot*-abilities are endless..
+
+<center><img src="images/ggplot_all.jpeg" height="450px" width="550px" /></center>
+https://www.r-graph-gallery.com/all-graphs.html
+
+https://serialmentor.com/dataviz/directory-of-visualizations.html
+
+---
+## 
+
+![](images/hiding.jpeg) 
+
+---
+
+## Friends don't let friends make bar plots...
+
+.center[
+![](https://rladiessydney.org/img/_Exploding_Barplot.gif)]
+
+----
+<center><img src="images/data_struc_show1.jpeg" height="650px" width="650px" /></center>
+---
+## The grammar of graphics..
+
+To make the most basic graph, you need to tell R three things:
+
+1. You're using ggplot
+
+2. What data is used to create the graph 
+
+3. What type of graph you want to create
+
+
+...everything beyond that is optional customization.
+
+---
+So code to make the most basic scatterplot for might look something like..
+
+```{r, eval = TRUE, echo= FALSE}
+  np_visit <- read.csv(url("https://raw.githubusercontent.com/allisonhorst/data-vis/master/np_visit.csv"))
+
+  g<- np_visit %>% 
+  dplyr::filter(park_name == "Dinosaur National Monument")
+
+```
+
+
+```{r dino_graph, eval = TRUE, echo= TRUE}
+
+  ggplot(g, aes(x = year, y = visitors)) +
+  geom_point()
+```
+---
+
+- Then you can customise your graph based on combining dplyr, the pipe operator and ggplot2
+```{r, eval = FALSE, fig.align ='center', fig.height= 5}
+  np_visit %>% # 
+  dplyr::filter(state == "CA" & type == "National Park") %>% 
+  dplyr::arrange(park_name, year) %>%
+  ggplot(aes(x = year, y = visitors)) + 
+  geom_point() + 
+  xlab("Year") +
+  ylab("Annual Visitors") +
+  theme_bw() +
+  ggtitle("California National Parks Visitation") +
+  facet_wrap(~park_name)
+```
+
+---
+
+```{r, eval = TRUE, echo= FALSE, fig.align ='center', fig.height= 8, fig.width=7}
+  np_visit %>% # 
+  dplyr::filter(state == "CA" & type == "National Park") %>% 
+  dplyr::arrange(park_name, year) %>%
+  ggplot(aes(x = year, y = visitors)) + 
+  geom_point() + 
+  xlab("Year") +
+  ylab("Annual Visitors") +
+  theme_bw() +
+  ggtitle("California National Parks Visitation") +
+  facet_wrap(~park_name)
+```
+
+https://cedricscherer.netlify.app/2019/05/17/the-evolution-of-a-ggplot-ep.-1/
+---
+## The pipe operator %>%
+
+- The "pipe" (%>%) is another friend  well worth learning how to use
+
+- The pipe will forward a value, or the result of an expression, into the next function call/expression. 
+
+```{r the pipe, eval = TRUE, echo= TRUE}
+
+# For instance a function to filter data can be written as:
+iris %>%
+  dplyr::group_by(Species) %>%
+  dplyr::summarize_if(is.numeric, mean) %>%
+  ungroup() %>%
+  gather(measure, value, -Species) %>%
+  dplyr::arrange(value)
+
+```
+Its legible in that you can read this as you would read normal prose (we read the %>% as “and then”): “take iris and then group by and then summarise and then ungroup and then arrange.
+
+---
+##  Analysis: Write your own *fun*-ctions
+
+- Make the computer do the hard work
+- I.e take a manual job like extracting values from presentation output in excel
+        Turn this -->  x 60 participants x 3 timepoints x 3 conditions
+
+<center><img src="images/excel_sheet.jpeg" height="400px"  width="550px" /></center>
+
+---
+
+## Using this....
+```{r, function example, eval= FALSE}
+load_ds_behav <- function(filename) {
+  if (!file.exists(filename)) {
+    warning(paste("Missing", filename))
+    return(NULL)
+  }
+  pathA <- dirname(filename)
+  folder1 <- basename(pathA)
+  id<- folder1  ## pull apart file name with bash style
+  
+  df <- read.table(filename,header = TRUE, sep = "\t",fileEncoding= "ASCII") # create a dataframe
+  
+  df <- mutate(df, sourcefile=filename, id=id, 
+               timepoint=timepoint, condition=condition)
+
+  acc_data<-sum(df$Accuracy=="Correct")
+  df<-mutate(df, accuracy=acc_data)
+  df<-select(df, id, timepoint, condition, accuracy) 
+  df<-head(df,1) 
+  return(df) } # Calculate accuracy and return df
+  
+  ## Now we have it working, instantly apply to everything
+  ds_df <- map_df(ds_behav_files, load_ds_behav)
+```
+
+---
+## Into this.....
+```{r, dataframe example, eval = TRUE, echo= FALSE}
+load("~/Documents/PHD-Data-Analysis/PHD-Data-Analysis/Analysis/Data/ds_df_wide.Rdata")
+load("~/Documents/PHD-Data-Analysis/PHD-Data-Analysis/Analysis/Data/ds_df_narrow.Rdata")
+
+knitr::kable(ds_df_wide[1:12, 1:10], "html")
+```
+
+---
+## Or this...
+
+```{r, eval = TRUE, echo= FALSE}
+knitr::kable(ds_df_narrow[1:10, 1:4], "html") 
+```
+
+---
+
+## In SECONDS!!!!*
+
+ * after you have spent a couple of hundred thousand seconds creating the code...
+ 
+ 
+.center[
+![](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)
+]
+
+---
+# Statistics with R
+
+- Pretty much anything is possible
+
+- Assumption checking
+
+- Descriptive statistics
+
+- Categorical Data Analysis
+
+- GLMs, MLMs, Linear Regression
+
+- Bayesian statistcs
+
+- The list goes on and on.....
+
+  + https://learningstatisticswithr.com/
+
+---
+## R Markdown
+- Turn your analyses into high quality documents, reports, presentations and dashboards with R Markdown.
+
+<center><img src="images/rmarkdown.jpeg" height="350px"  width="400px" /></center>
+
+---
+
+## R Markdown
+
+- Analyze. Share. Reproduce.
+
+- R Markdown documents are fully reproducible.
+
+- Use a productive notebook interface to weave together narrative text and code to produce elegantly formatted output.
+
+- Can embed multiple languages ⧉ including R, Python, and SQL.
+
+<center><img src="images/notebook-demo.jpeg" height="350px"  width="300px" /></center>
+
+---
+## Hopefully now you're inspired...
+- Best time to start is now 
+
+- The following are some good places/resources
+
+- Ask me to send you my Intro to R email & Useful packages list
+
+- Twitter (**virtual R buddies**)
+
+- R ladies (fantastic community and events)
+
+- Data Science Meetups (little more intense but often free food)
+
+- Stack Overflow (someone has always asked your question before you)
+
+- Youtube
+
+- Tidy Tuesday (https://www.tidytuesday.com/)
+
+---
+
+## ggplot2 specific resources
+
+- The Data Visualisation and Graphics for communication chapters in R for Data Science.
+  + https://r4ds.had.co.nz/
+  
+- Online course, try Data Visualization in R With ggplot2 by Kara Woo.
+
+- R Graphics Cookbook by Winston Chang
+
+- To help you choose which plot to use
+  + https://www.data-to-viz.com/
+  
+- General principles of data viz 
+  + https://docs.google.com/presentation/d/1EA_PfTiSXh8J0JH03d1pcA6luVJeN2oUGozxhZoiydQ/edit#slide=id.g7420956e08_0_139
+
+---
+## And always remember 
+- The road is long, the mountain is high and the view is great
+
+<center><img src="./images/learnprog.jpeg" height="400px" /></center>
+
+
+---
+```{r, echo= FALSE}
+#save slides as PDF
+pagedown::chrome_print("/Users/han.coyle/Documents/Data Science/R/Intro_Pres/Intro_to_R.html")
+```
+
+install.packages("webshot")
+library(webshot)
