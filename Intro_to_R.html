@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="Intro_to_R_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="Intro_to_R_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+.pull-right[
+# Introduction to R 
+    Hannah Coyle 
+    20th August 2020
+    ECIMH Professional Development Session]
+
+&lt;center&gt;&lt;img src="images/welcome_to_R.jpeg" height="400px" /&gt;&lt;/center&gt;
+.pull-right[@allison.horst]
+---
+
+
+
+
+
+## Introduction to R
+- There are so many cool things you can do
+
+- Today is not an exhaustive list, more about dipping your toes in the water
+
+- Won't be a deep dive into *how* to use R, more *what* you can use it for
+
+- Hopefully once inspired you will be motivated to go out on your own 
+
+.center[
+![](https://media.giphy.com/media/LUIvcbR6yytz2/giphy.gif)
+]
+
+---
+## Lets start at the very beginning...
+- *R* is the language *R Studio* is the IDE 
+ 
+- It is open-source (i.e. free) and available at http://www.rstudio.com/
+
+&lt;center&gt;&lt;img src="./images/rstudio_ed.jpeg" height="450px" width="650px" /&gt;&lt;/center&gt;
+
+
+---
+## A quick look see
+&lt;center&gt;&lt;img src="images/rstudio.jpeg" height="450px" width="650px" /&gt;&lt;/center&gt;
+- To learn how to navigate R studio I think the best place to start is this video (https://rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/)
+
+---
+## Packages
+- The real power of R comes through it's packages
+
+- Packages are fundamental units of reproducible R code. 
+
+- They include reusable R functions, the documentation that describes how to use them, and sample data
+
+
+&lt;center&gt;&lt;img src="images/R_packages.jpeg" height="250px" width="500px"/&gt;&lt;/center&gt;
+
+- Step 1: Look on CRAN (https://cran.r-project.org/)
+- Step 2: See if the author wrote a package vignette
+- Step 3: Google it (always your friend!)
+
+---
+## Tidyverse
+- The Tidyverse is created by Hadley Wickham ( R Pirate Captain!)
+- Collection of packages designed with the sole purpose of making your life easier.
+
+
+```r
+install.packages("tidyverse")
+library (tidyverse)
+```
+
+The goal of tidyr is to help you create tidy data. Tidy data is data where:
+
+- Every column is variable.
+- Every row is an observation.
+- Every cell is a single value.
+
+&lt;center&gt;&lt;img src="images/data_struc.jpeg" height="250px" width="500px"/&gt;&lt;/center&gt;
+
+---
+## Data types and structure
+
+- Everything in R is an object.
+
+&lt;center&gt;&lt;img src="images/data_type.jpeg" height="350px" width="500px"/&gt;&lt;/center&gt;
+- Lots of useful functions to check what you are working with
+  + class() - what kind of object is it (high-level)?
+  + typeof() - what is the object’s data type (low-level)?
+  + length() - how long is it? What about two dimensional objects?
+  + attributes() - does it have any metadata?
+
+---
+## Import your data
+- R can import data from lots of existing formats
+  + **haven** for SPSS, Stata, and SAS data.
+  + **httr** for web APIs.
+  + **readxl** for .xls and .xlsx sheets.
+  + **rvest** for web scraping.
+  + **jsonlite** for JSON. 
+
+- Once in R, it is called a dataframe 
+&lt;center&gt;&lt;img src="images/data_frame1.jpeg" height="300px" width="550px" /&gt;&lt;/center&gt;
+
+---
+
+## Wrangle your data
+- No matter how much effort we put into database design the nature of data is that it is often messy
+
+- The tidyverse includes packages specifically designed to help with the job 
+
+  + lubridate for dates and date-times.
+  + stringr for working with strings
+  + forcats for working with categorical variables
+  + hms for time-of-day values.
+
+- Helps clean/organise your data into the right format prior to plotting/analysis
+.center[
+![](https://media.giphy.com/media/z5fNH8BMbeDN6/giphy.gif)
+]
+
+---
+
+# Wrangle your data (cont)...
+- It's likely you will be working with a big dataset
+
+
+
+
+```
+## [1]  56 236
+```
+
+```
+## Rows: 56
+## Columns: 236
+## $ code                              &lt;dbl&gt; 1, 10, 101, 102, 103, 104, 105, 106…
+## $ group                             &lt;chr&gt; "control", "control", "mtbi", "mtbi…
+## $ initals                           &lt;chr&gt; "LNo", "CRo", "AHa", "ASu", "KGa", …
+## $ ur_number                         &lt;dbl&gt; NA, NA, 7038891, 7038256, 6202556, …
+## $ sex                               &lt;chr&gt; "female", "female", "female", "male…
+## $ d.o.b                             &lt;chr&gt; "20.12.88", "14.03.94", "28.07.69",…
+## $ age                               &lt;dbl&gt; 28, 22, 47, 53, 28, 29, 30, 41, 49,…
+## $ notes                             &lt;chr&gt; "", "", "", "", "", "", "", "", "3r…
+## $ dateofinjury                      &lt;date&gt; NA, NA, 2017-01-21, 2017-01-18, 20…
+## $ baseline                          &lt;date&gt; 2017-12-22, 2017-02-01, 2017-02-15…
+## $ t1                                &lt;date&gt; 2017-03-23, 2017-05-08, 2017-05-23…
+## $ t2                                &lt;date&gt; 2017-06-27, 2017-08-07, 2017-08-21…
+## $ headinjury_hx                     &lt;chr&gt; "no", "no", "yes", "yes", "yes", "y…
+## $ gcs                               &lt;dbl&gt; NA, NA, NA, 15, NA, 15, 15, NA, 13,…
+## $ loc                               &lt;chr&gt; NA, NA, "yes", "no", "no", "no", "n…
+## $ loc_dur                           &lt;dbl&gt; NA, NA, 2.0, NA, NA, 0.0, 0.0, NA, …
+## $ amnesia                           &lt;chr&gt; "NA", "NA", "retrograde", NA, "retr…
+## $ injury_notes                      &lt;chr&gt; "", "", "MBA, approx 60km/h, H/S, a…
+## $ injury_class                      &lt;chr&gt; "", "", "MVA", "HS", "Other", "PBA"…
+## $ days_post                         &lt;dbl&gt; NA, NA, 25, 32, 19, 13, 23, 12, 25,…
+## $ ct_pathology                      &lt;fct&gt; NA, NA, nill, nill, nill, nill, nil…
+## $ ct_notes                          &lt;chr&gt; "", "", "clear", "clear", "clear", …
+## $ prior_injury                      &lt;chr&gt; "", "", "One other MBA, 1986/87, no…
+## $ other_injury                      &lt;chr&gt; "", "", "right leg, look up on cern…
+## $ ageofinjury                       &lt;dbl&gt; NA, NA, 47, 53, 28, 29, 30, 41, 49,…
+## $ education                         &lt;dbl&gt; 21, 17, 16, 16, 15, 19, 12, 26, 16,…
+## $ hand                              &lt;chr&gt; "1", "1", "1", "1", "1", "1", "1", …
+## $ percent                           &lt;dbl&gt; 70, 100, 100, 100, 80, 100, 100, 10…
+## $ mddiagnosis                       &lt;dbl&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,…
+## $ mdmel                             &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,…
+## $ dysthymia                         &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,…
+## $ mania                             &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ panicagor                         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ social                            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ ocd                               &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ ptsd                              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ alcohol                           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ subst                             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ anorexia                          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ bulimia                           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ anxiety                           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ hads_anxiety_bl                   &lt;dbl&gt; NA, NA, NA, NA, NA, 0, 2, 1, 7, 0, …
+## $ hads_depression_bl                &lt;dbl&gt; NA, NA, NA, NA, NA, 2, 8, 0, 1, 2, …
+## $ hads_total_bl                     &lt;dbl&gt; NA, NA, NA, NA, 30, 2, 10, 1, 8, 2,…
+## $ sf36_pf_bl                        &lt;dbl&gt; 100, 100, 30, 100, 35, 80, 100, 95,…
+## $ sf36_rphys_bl                     &lt;dbl&gt; 100, 100, 0, 0, 25, 0, 75, 0, 0, 10…
+## $ sf36_remo_bl                      &lt;dbl&gt; 100, 100, 100, 33, 0, 100, 100, 100…
+## $ sf36_energy_bl                    &lt;dbl&gt; 75, 85, 55, 85, 10, 85, 60, 80, 30,…
+## $ sf36_mh_bl                        &lt;dbl&gt; 92, 96, 56, 96, 8, 84, 76, 88, 80, …
+## $ sf36_sf_bl                        &lt;dbl&gt; 100, 100, 75, 25, 0, 75, 88, 75, 0,…
+## $ sf36_pain_bl                      &lt;dbl&gt; 90.0, 90.0, 58.0, 45.0, 23.0, 45.0,…
+## $ sf36_gh_bl                        &lt;dbl&gt; 90, 70, 80, 100, 65, 85, 100, 100, …
+## $ rpq_3_bl                          &lt;dbl&gt; 0, 0, 1, 2, 9, 0, 2, 0, 3, 1, 2, 0,…
+## $ rpq_13_bl                         &lt;dbl&gt; 3, 1, 0, 1, 30, 0, 0, 1, 18, 0, 18,…
+## $ rpq_16_bl                         &lt;dbl&gt; 3, 1, 1, 3, 39, 0, 2, 1, 21, 1, 20,…
+## $ mfi_gf_bl                         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, 13,…
+## $ mfi_pf_bl                         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, 12,…
+## $ mfi_ra_bl                         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, 16,…
+## $ mfi_rm_bl                         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, 11,…
+## $ mfi_mf_bl                         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, 16,…
+## $ wtar                              &lt;dbl&gt; 44, 49, 32, 43, 21, 45, 37, 48, 45,…
+## $ tma_bl                            &lt;dbl&gt; 16.53, 18.97, 26.00, 36.12, 24.00, …
+## $ tmb_bl                            &lt;dbl&gt; 23.16, 29.37, 44.00, 47.00, 113.00,…
+## $ ravlt_t1_bl                       &lt;dbl&gt; 10, 10, 7, 5, 6, 7, 6, 6, 4, 9, 9, …
+## $ ravl_t2_bl                        &lt;dbl&gt; 14, 12, 13, 8, 8, 9, 11, 8, 6, 13, …
+## $ ravlt_t3_bl                       &lt;dbl&gt; 15, 15, 13, 11, 8, 8, 12, 10, 8, 12…
+## $ ravlt_t4_bl                       &lt;dbl&gt; 15, 15, 14, 11, 9, 10, 12, 11, 9, 1…
+## $ ravlt_t5_bl                       &lt;dbl&gt; 15, 15, 14, 11, 9, 13, 12, 12, 13, …
+## $ ravlt_t_bl                        &lt;dbl&gt; 69, 67, 61, 46, 40, 47, 53, 47, 40,…
+## $ ravlt_a6a5_bl                     &lt;dbl&gt; 0, 0, -2, -5, 0, -3, -1, -1, -2, 0,…
+## $ ravlt_d_bl                        &lt;dbl&gt; 15, 15, 12, 5, 10, 9, 12, 11, 7, 14…
+## $ bvmt_t1_bl                        &lt;dbl&gt; 8, 9, 7, 6, 3, 6, 9, 7, 5, 5, 9, 2,…
+## $ bvmt_t2_bl                        &lt;dbl&gt; 11, 10, 10, 11, 6, 8, 10, 12, 9, 10…
+## $ bvmt_t3_bl                        &lt;dbl&gt; 11, 11, 11, 11, 11, 10, 11, 12, 12,…
+## $ totalbvmt_bl                      &lt;dbl&gt; 30, 30, 28, 28, 20, 24, 30, 31, 26,…
+## $ ds_fwd_bl                         &lt;dbl&gt; 11, 11, 9, 9, 12, 15, 14, 9, 13, 12…
+## $ ds_bwd_bl                         &lt;dbl&gt; 10, 6, 6, 7, 7, 8, 8, 8, 10, 9, 6, …
+## $ ds_total_bl                       &lt;dbl&gt; 21, 17, 15, 16, 19, 23, 22, 17, 23,…
+## $ lns_bl                            &lt;dbl&gt; 13, 11, NA, 15, 9, 14, 12, 14, NA, …
+## $ coding_bl                         &lt;dbl&gt; 70, 78, 75, 61, 56, 52, 50, 61, 54,…
+## $ symbolsearch_bl                   &lt;dbl&gt; 45, 36, 35, 34, 26, 39, 32, 36, 22,…
+## $ ravlt_recognition_bl              &lt;dbl&gt; 47, 38, NA, 35, 36, 36, 37, 30, NA,…
+## $ arithmetic_bl                     &lt;dbl&gt; 20, 17, 13, 20, 7, 11, 17, 16, 20, …
+## $ cowat_bl                          &lt;dbl&gt; 56, 59, NA, 53, 47, 34, 42, 42, NA,…
+## $ bvmt_delay_recall                 &lt;dbl&gt; 10, 11, NA, NA, 11, 8, 11, 12, 12, …
+## $ bvmt_recognition                  &lt;dbl&gt; 12, 12, NA, 12, 11, 11, 12, 12, 12,…
+## $ rmt                               &lt;dbl&gt; 49, 55, 46, 55, 41, 46, 39, 52, 50,…
+## $ rmt_110                           &lt;dbl&gt; 54, 61, 52, 61, 45, 51, 43, 57, 55,…
+## $ rmt_70                            &lt;dbl&gt; 34, 39, 32, 39, 29, 32, 26, 36, 35,…
+## $ dsb_eeg_t_bl_pre                  &lt;dbl&gt; 10, 8, 6, 5, 5, 11, 11, 8, 8, 7, 9,…
+## $ dsb_eeg_ldb_bl_pre                &lt;dbl&gt; 6, 4, 4, 2, 4, 5, 5, 4, 4, 4, 5, 6,…
+## $ dsb_eeg_t_bl_post                 &lt;dbl&gt; 8, 12, 2, 7, 5, 13, 11, 8, 10, 7, 1…
+## $ dsb_eeg_ldb_bl_post               &lt;dbl&gt; 4, 8, 2, 4, 3, 8, 6, 5, 6, 5, 7, 5,…
+## $ dsb_eeg_t_bl_delay                &lt;dbl&gt; 9, 11, NA, 7, 5, 13, 0, NA, NA, 10,…
+## $ dsb_eeg_ldb_bl_delay              &lt;dbl&gt; 5, 6, NA, 5, 3, 8, 0, NA, NA, 6, NA…
+## $ teps_p2p_n100_negclus_amp_bl_pre  &lt;dbl&gt; 1.4697246, 3.9677563, 0.4663457, 99…
+## $ teps_p2p_n100_negclus_lat_bl_pre  &lt;dbl&gt; 99, 0, 104, 999, 0, 0, 0, 118, 0, 1…
+## $ teps_p2p_n100_posclus_amp_bl_pre  &lt;dbl&gt; -2.5754220, -3.0335369, -3.0797581,…
+## $ teps_p2p_n100_posclus_lat_bl_pre  &lt;dbl&gt; 131, 118, 123, 999, 111, 113, 115, …
+## $ teps_p2p_p60_posclus_amp_bl_pre   &lt;dbl&gt; 1.36602658, 1.00471604, -1.09753984…
+## $ teps_p2p_p60_posclus_lat_bl_pre   &lt;dbl&gt; 64, 51, 0, 999, 0, 0, 52, 56, 64, 6…
+## $ teps_p2p_n100_posclus_amp_bl_post &lt;dbl&gt; -3.1906658, -3.0217492, -3.3839027,…
+## $ teps_p2p_n100_posclus_lat_bl_post &lt;dbl&gt; 119, 117, 111, 999, 97, 115, 118, 1…
+## $ teps_p2p_n100_negclus_amp_bl_post &lt;dbl&gt; 5.7612603, 3.5404475, 1.8448407, 99…
+## $ teps_p2p_n100_negclus_lat_bl_post &lt;dbl&gt; 0, 0, 0, 999, 0, 0, 111, 125, 0, 11…
+## $ crt_go_acc                        &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ crt_go_rt                         &lt;dbl&gt; 315.746, 279.443, 999.000, 999.000,…
+## $ crt_nogo_acc                      &lt;dbl&gt; 268.000, 218.500, NA, NA, NA, NA, N…
+## $ crt_nogo_rt                       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ gfp_first_win_preitbs             &lt;dbl&gt; 1.8388496, 1.7561099, NA, 1.4917429…
+## $ gfp_sec_win_preitbs               &lt;dbl&gt; 2.0689890, 2.4071061, NA, 1.8387612…
+## $ gfp_first_win_postitbs            &lt;dbl&gt; 1.2000022, 1.3953458, NA, 2.3673882…
+## $ gfp_sec_win_postitbs              &lt;dbl&gt; 1.482913, 2.998014, NA, 2.680385, N…
+## $ alpha_power_ec_bl                 &lt;dbl&gt; 0.14933330, 0.05639068, 2.19738956,…
+## $ hads_depression_t1                &lt;dbl&gt; 0, 0, 3, 3, 16, NA, 1, NA, 6, NA, 1…
+## $ hads_anxiety_t1                   &lt;dbl&gt; 2, 1, 3, 1, 18, NA, 9, NA, 3, NA, 7…
+## $ hads_total_t1                     &lt;dbl&gt; 2, 1, 6, 4, 34, NA, 9, NA, 9, NA, 8…
+## $ mfi_gf_t1                         &lt;dbl&gt; NA, NA, 13, 7, NA, NA, 11, NA, 12, …
+## $ mfi_pf_t1                         &lt;dbl&gt; NA, NA, 14, 9, NA, NA, 9, NA, 8, NA…
+## $ mfi_ra_t1                         &lt;dbl&gt; NA, NA, 16, 5, NA, NA, 4, NA, 11, N…
+## $ mfi_rm_t1                         &lt;dbl&gt; NA, NA, 11, 10, NA, NA, 5, NA, 7, N…
+## $ mfi_mf_t1                         &lt;dbl&gt; NA, NA, 16, 5, NA, NA, 13, NA, 11, …
+## $ sf36_pf_t1                        &lt;dbl&gt; 100, 100, 29, NA, 19, NA, 90, NA, 1…
+## $ sf36_rphys_t1                     &lt;dbl&gt; 100, 100, 8, NA, 4, NA, 25, NA, 100…
+## $ sf36_remo_t1                      &lt;dbl&gt; 100, 100, 6, NA, 3, NA, 67, NA, 100…
+## $ sf36_energy_t1                    &lt;dbl&gt; 75, 90, 12, NA, 13, NA, 65, NA, 40,…
+## $ sf36_mh_t1                        &lt;dbl&gt; 92, 96, 21, NA, 14, NA, 76, NA, 80,…
+## $ sf36_sf_t1                        &lt;dbl&gt; 100, 100, 5, NA, 5, NA, 75, NA, 100…
+## $ sf36_pain_t1                      &lt;dbl&gt; 90, 100, 5, NA, 9, NA, 45, NA, 90, …
+## $ sf36_gh_t1                        &lt;dbl&gt; 95, 85, 15, NA, 18, NA, 85, NA, 95,…
+## $ rpq_3_t1_control                  &lt;dbl&gt; 0, 1, NA, NA, NA, NA, NA, NA, NA, N…
+## $ rpq_16_t1                         &lt;dbl&gt; 4, 0, NA, NA, NA, NA, NA, NA, NA, N…
+## $ rpq_10_t1                         &lt;dbl&gt; NA, NA, 0, 0, 12, NA, 2, NA, 25, NA…
+## $ rpq_10_mtbi_notes                 &lt;chr&gt; "", "", "", "", "", "", "", "", "\"…
+## $ tma_t1                            &lt;dbl&gt; 13.00, 20.00, 23.00, 23.00, 17.00, …
+## $ tmb_t1                            &lt;dbl&gt; 17.00, 33.00, 31.00, 43.00, 54.00, …
+## $ ravlt_t1_t1                       &lt;dbl&gt; NA, 14, 4, 5, 6, NA, 10, NA, 5, NA,…
+## $ ravl_t2_t1                        &lt;dbl&gt; NA, 15, 12, 8, 8, NA, 15, NA, 8, NA…
+## $ ravlt_t3_t1                       &lt;dbl&gt; NA, 15, 14, 9, 11, NA, 14, NA, 10, …
+## $ ravlt_t4_t1                       &lt;dbl&gt; NA, 15, 14, 8, 12, NA, 14, NA, 14, …
+## $ ravlt_t5_t1                       &lt;dbl&gt; NA, 15, 12, 9, 11, NA, 15, NA, 14, …
+## $ ravlt_t_t1                        &lt;dbl&gt; NA, 74, 56, 39, 48, NA, 68, NA, 51,…
+## $ ravlt_a6a5_t1                     &lt;dbl&gt; NA, 15, NA, -3, 2, NA, -2, NA, -4, …
+## $ ravlt_d_t1                        &lt;dbl&gt; NA, 15, 9, 6, 13, NA, 14, NA, 9, NA…
+## $ bvmt_t1_t1                        &lt;dbl&gt; 10, 8, 6, 2, 5, NA, 5, NA, 4, NA, 8…
+## $ bvmt_t2_t1                        &lt;dbl&gt; 11, 12, 10, 7, 8, NA, 10, NA, 10, N…
+## $ bvmt_t3_t1                        &lt;dbl&gt; 11, 12, 11, 7, 11, NA, 11, NA, 10, …
+## $ ds_fwd_t1                         &lt;dbl&gt; 13, 11, 11, 10, 9, NA, 13, NA, 15, …
+## $ ds_bwd_t1                         &lt;dbl&gt; 8, 10, 12, 8, 2, NA, 12, NA, 12, NA…
+## $ ds_total_t1                       &lt;dbl&gt; 21, 21, 23, 18, 11, NA, 25, NA, 27,…
+## $ lns_t1                            &lt;dbl&gt; 13, 11, NA, 13, 6, NA, 14, NA, NA, …
+## $ coding_t1                         &lt;dbl&gt; 72, 84, 75, 65, 52, NA, 53, NA, 57,…
+## $ symbolsearch_t1                   &lt;dbl&gt; 41, 46, 38, 37, 37, NA, 38, NA, 29,…
+## $ ravlt_recognition_t1              &lt;dbl&gt; NA, 47, NA, 36, 39, NA, 43, NA, NA,…
+## $ arithmetic_t1                     &lt;dbl&gt; 21, 17, 15, 19, 8, NA, 15, NA, 20, …
+## $ cowat_t1                          &lt;dbl&gt; 45, 64, NA, 55, 58, NA, 45, NA, NA,…
+## $ bvmt_delayrecall_t1               &lt;dbl&gt; 12, 12, NA, 6, 11, NA, 11, NA, 10, …
+## $ bvmt_recognition_t1               &lt;dbl&gt; 12, 12, NA, 12, 12, NA, 12, NA, 12,…
+## $ rmt_t1                            &lt;dbl&gt; 50, 51, 47, 56, 39, NA, 39, NA, 48,…
+## $ rmt_110_t1                        &lt;dbl&gt; 55, 56, 53, 62, 43, NA, 43, NA, 53,…
+## $ rmt_70_t1                         &lt;dbl&gt; 35, 36, 32, 39, 27, NA, 27, NA, 34,…
+## $ alpha_power_ec_t1                 &lt;dbl&gt; 0.09483792, 0.04889328, 1.30195586,…
+## $ hads_depression_t2                &lt;dbl&gt; 0, 1, 1, 0, NA, NA, 2, NA, 5, NA, 2…
+## $ hads_anxiety_t2                   &lt;dbl&gt; 1, 0, 4, 2, NA, NA, 8, NA, 3, NA, 6…
+## $ hads_total_t2                     &lt;dbl&gt; 1, 1, 5, 2, NA, NA, 10, NA, 8, NA, …
+## $ sf36_pf_t2                        &lt;dbl&gt; 100, 100, 90, 95, NA, NA, 100, NA, …
+## $ sf36_rphys_t2                     &lt;dbl&gt; 100, 100, 100, 100, NA, NA, 100, NA…
+## $ sf36_remo_t2                      &lt;dbl&gt; 100, 100, 100, 100, NA, NA, 100, NA…
+## $ sf36_energy_t2                    &lt;dbl&gt; 85, 90, 95, 85, NA, NA, 85, NA, 70,…
+## $ sf36_mh_t2                        &lt;dbl&gt; 100, 100, 92, 96, NA, NA, 76, NA, 7…
+## $ sf36_sf_t2                        &lt;dbl&gt; 100.0, 100.0, 62.5, 100.0, NA, NA, …
+## $ sf36_pain_t2                      &lt;dbl&gt; 100, 100, 100, 80, NA, NA, 100, NA,…
+## $ sf36_gh_t2                        &lt;dbl&gt; 95, 85, 80, 90, NA, NA, 85, NA, 90,…
+## $ rpq_3_t2_control                  &lt;dbl&gt; 0, 0, NA, NA, NA, NA, NA, NA, NA, N…
+## $ rpq_16_t2                         &lt;dbl&gt; 0, 0, NA, NA, NA, NA, NA, NA, NA, N…
+## $ rpq_10_t2                         &lt;dbl&gt; NA, NA, 0, 0, NA, NA, 0, NA, 14, NA…
+## $ rpq_mtbi_t2_notes                 &lt;chr&gt; "", "", "", "", "", "", "", "", "",…
+## $ mfi_gf_t2                         &lt;dbl&gt; NA, 6, 10, 6, NA, NA, 11, NA, 10, N…
+## $ mfi_pf_t2                         &lt;dbl&gt; NA, 4, 7, 8, NA, NA, 9, NA, 8, NA, …
+## $ mfi_ra_t2                         &lt;dbl&gt; NA, 4, 12, 8, NA, NA, 4, NA, 9, NA,…
+## $ mfi_rm_t2                         &lt;dbl&gt; NA, 4, 5, 4, NA, NA, 5, NA, 6, NA, …
+## $ mfi_mf_t2                         &lt;dbl&gt; NA, 4, 7, 9, NA, NA, 13, NA, 5, NA,…
+## $ tma_t2                            &lt;dbl&gt; 11.00, 18.81, 18.22, 17.44, NA, NA,…
+## $ tmb_t2                            &lt;dbl&gt; 16.000, 28.530, 35.160, 50.530, NA,…
+## $ ravlt_t1_t2                       &lt;dbl&gt; 9, NA, 5, 8, NA, NA, 10, NA, 7, NA,…
+## $ ravl_t2_t2                        &lt;dbl&gt; 14, NA, 9, 7, NA, NA, 12, NA, 10, N…
+## $ ravlt_t3_t2                       &lt;dbl&gt; 15, NA, 8, 9, NA, NA, 12, NA, 12, N…
+## $ ravlt_t4_t2                       &lt;dbl&gt; 15, NA, 13, 11, NA, NA, 14, NA, 13,…
+## $ ravlt_t5_t2                       &lt;dbl&gt; 15, NA, 11, 10, NA, NA, 13, NA, 13,…
+## $ ravlt_t_t2                        &lt;dbl&gt; 68, NA, 46, 45, NA, NA, 61, NA, 55,…
+## $ ravlt_a6a5_t2                     &lt;dbl&gt; 0, NA, -3, -2, NA, NA, 1, NA, -3, N…
+## $ ravlt_d_t2                        &lt;dbl&gt; 14, NA, 7, 8, NA, NA, 15, NA, 10, N…
+## $ bvmt_t1_t2                        &lt;dbl&gt; 10, 9, 5, 6, NA, NA, 7, NA, 7, NA, …
+## $ bvmt_t2_t2                        &lt;dbl&gt; 12, 12, 7, 9, NA, NA, 12, NA, 10, N…
+## $ bvmt_t3_t2                        &lt;dbl&gt; 12, 12, 10, 11, NA, NA, 11, NA, 10,…
+## $ ds_fwd_t2                         &lt;dbl&gt; 12, 11, 11, 8, NA, NA, 14, NA, 15, …
+## $ ds_bwd_t2                         &lt;dbl&gt; 8, 8, 11, 8, NA, NA, 10, NA, 11, NA…
+## $ ds_total_t2                       &lt;dbl&gt; 20, 19, 22, 16, NA, NA, 24, NA, 26,…
+## $ lns_t2                            &lt;dbl&gt; 14, 12, NA, 9, NA, NA, 14, NA, 14, …
+## $ coding_t2                         &lt;dbl&gt; 74, 86, 70, 64, NA, NA, 58, NA, 56,…
+## $ symbolsearch_t2                   &lt;dbl&gt; 48, 48, 42, 40, NA, NA, 38, NA, 19,…
+## $ ravlt_recognition_t2              &lt;dbl&gt; 46, NA, NA, 40, NA, NA, 39, NA, NA,…
+## $ arithmetic_t2                     &lt;dbl&gt; 20, 15, 16, 18, NA, NA, 17, NA, 20,…
+## $ cowat_t2                          &lt;dbl&gt; 44, 61, NA, 52, NA, NA, 40, NA, NA,…
+## $ bvmt_delayrecall_t2               &lt;dbl&gt; 12, 12, 8, 11, NA, NA, 12, NA, 10, …
+## $ bvmt_recognition_t2               &lt;dbl&gt; 12, 12, 12, 12, NA, NA, 12, NA, 12,…
+## $ rmt_t2                            &lt;dbl&gt; 47, 51, NA, 56, NA, NA, 38, NA, 50,…
+## $ rmt_110_t2                        &lt;dbl&gt; 52, 56, 51, 62, NA, NA, 42, NA, 55,…
+## $ rmt_70_t2                         &lt;dbl&gt; 33, 36, 32, 39, NA, NA, 27, NA, 35,…
+## $ alpha_power_ec_t2                 &lt;dbl&gt; 0.09497454, 0.03579252, 1.21636692,…
+## $ ztma_bl                           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ bvmt_total                        &lt;dbl&gt; 30, 30, 28, 28, 20, 24, 30, 31, 26,…
+## $ mfi_total_bl                      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, 68,…
+## $ mfi_total_t1                      &lt;dbl&gt; NA, NA, 70, 36, NA, NA, 42, NA, 49,…
+## $ mfi_total_t2                      &lt;dbl&gt; NA, 22, 41, 35, NA, NA, 42, NA, 38,…
+## $ n100_bl                           &lt;dbl&gt; -2.5754220, -3.0335370, -3.0797580,…
+## $ n100_t1                           &lt;dbl&gt; -0.6292168, -2.6058410, -3.9175000,…
+## $ n100_t2                           &lt;dbl&gt; -1.885530, -1.852751, -4.940181, -1…
+## $ alpha_bl                          &lt;dbl&gt; 0.11919471, 0.03767557, 1.68883536,…
+## $ alpha_t1                          &lt;dbl&gt; 0.07992500, 0.04556836, 1.19564393,…
+## $ alpha_t2                          &lt;dbl&gt; 0.07333200, 0.02657021, 1.13498800,…
+## $ av_gfp_bl                         &lt;dbl&gt; 1.341457, 2.196680, 3.231449, 2.523…
+## $ av_gfp_t1                         &lt;dbl&gt; 2.7909408, 1.6109176, 1.7344729, NA…
+## $ av_gfp_t2                         &lt;dbl&gt; 1.443285, 1.754155, 2.445952, 1.179…
+## $ p60_bl                            &lt;dbl&gt; 1.36602600, 1.00471600, -1.09754000…
+## $ p60_t1                            &lt;dbl&gt; 0.76626000, 1.27640400, -1.54978100…
+## $ p60_t2                            &lt;dbl&gt; 0.926337800, 1.372298000, -1.248625…
+## $ rpq_perc_bl.x                     &lt;dbl&gt; 4.6875, 1.5625, 1.5625, 4.6875, 60.…
+## $ rpq_perc_t1.x                     &lt;dbl&gt; 6.2500, 1.5625, 0.0000, 0.0000, 30.…
+## $ rpq_perc_t2.x                     &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, NA, NA, 0.0, NA…
+## $ rpq_bl_cat                        &lt;fct&gt; NA, NA, mild, mild, severe, nil, mi…
+## $ rpq_t1_cat                        &lt;fct&gt; NA, NA, nil, nil, moderate, NA, mil…
+## $ rpq_t2_cat                        &lt;fct&gt; NA, NA, nil, nil, NA, NA, nil, NA, …
+## $ rpq_perc_bl.y                     &lt;dbl&gt; 4.6875, 1.5625, 1.5625, 4.6875, 60.…
+## $ rpq_perc_t1.y                     &lt;dbl&gt; 6.2500, 1.5625, 0.0000, 0.0000, 30.…
+## $ rpq_perc_t2.y                     &lt;dbl&gt; 0.0, 0.0, 0.0, 0.0, NA, NA, 0.0, NA…
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; code &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; group &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; initals &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; ur_number &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; d.o.b &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; age &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; notes &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; dateofinjury &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; baseline &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; LNo &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 20.12.88 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-12-22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; CRo &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14.03.94 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-02-01 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 101 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mtbi &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; AHa &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7038891 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 28.07.69 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 47 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-01-21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-02-15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 102 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mtbi &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ASu &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7038256 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 31.10.63 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 53 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-01-18 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-02-24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 103 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mtbi &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; KGa &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6202556 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16.11.89 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-03-02 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-03-21 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 104 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mtbi &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TDe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6252414 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 08.02.88 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-04-05 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-04-18 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 105 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mtbi &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; JMo &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1229531 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 28.09.86 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-03-27 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-04-19 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 106 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mtbi &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; PPr &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6065121 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10.02.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-04-18 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-05-01 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 107 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mtbi &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; DBe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7061598 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 08.03.68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3rd session out of +/- 7 day window due to holidays &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-05-20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-06-14 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 108 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mtbi &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; JMi &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7063069 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 21.03.92 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-05-31 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-06-27 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 109 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mtbi &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; JDu &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1143545 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 15.08.82 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-06-13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-07-07 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; SKa &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 18.07.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2017-03-09 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+# So dplyr is your best of friends
+
+&lt;center&gt;&lt;img src="images/dplyr.jpeg" height="500px" width="650px" /&gt;&lt;/center&gt;
+
+---
+
+# For example...
+
+- Say I wan't to look at just the mTBI participants
+
+```r
+COMBINED_COG_PhD %&gt;%
+  dplyr::filter(group=="mtbi") %&gt;%
+  dplyr::select(code, age, sex, education) %&gt;%
+  knitr::kable("html")
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; code &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; age &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; education &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 101 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 47 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 102 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 53 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 103 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 104 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 105 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 106 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 107 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 108 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 109 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 110 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 111 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 112 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 113 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 46 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 114 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 115 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 116 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 117 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 118 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 119 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 120 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 44 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 121 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 122 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 123 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 124 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 125 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 55 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 126 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 127 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 128 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 129 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 54 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 130 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# dplyr (cont)..
+
+&lt;center&gt;&lt;img src="images/dplyr_2.jpeg" height="550px" width="700px" /&gt;&lt;/center&gt;
+
+https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+
+---
+
+## Explore your data
+- ggplot2 is a **magical** graphics package specifically built to help you iteratively create customized graphs.
+
+&lt;center&gt;&lt;img src="images/ggplot2_exploratory_1.jpeg" height="400px" width="550px" /&gt;&lt;/center&gt;
+.pull-right[@allison.horst]
+---
+
+## The *plot*-abilities are endless..
+
+&lt;center&gt;&lt;img src="images/ggplot_all.jpeg" height="450px" width="550px" /&gt;&lt;/center&gt;
+https://www.r-graph-gallery.com/all-graphs.html
+
+https://serialmentor.com/dataviz/directory-of-visualizations.html
+
+---
+## 
+
+![](images/hiding.jpeg) 
+
+---
+
+## Friends don't let friends make bar plots...
+
+.center[
+![](https://rladiessydney.org/img/_Exploding_Barplot.gif)]
+
+----
+&lt;center&gt;&lt;img src="images/data_struc_show1.jpeg" height="650px" width="650px" /&gt;&lt;/center&gt;
+---
+## The grammar of graphics..
+
+To make the most basic graph, you need to tell R three things:
+
+1. You're using ggplot
+
+2. What data is used to create the graph 
+
+3. What type of graph you want to create
+
+
+...everything beyond that is optional customization.
+
+---
+So code to make the most basic scatterplot for might look something like..
+
+
+
+
+
+```r
+  ggplot(g, aes(x = year, y = visitors)) +
+  geom_point()
+```
+
+&lt;img src="Intro_to_R_files/figure-html/dino_graph-1.png" style="display: block; margin: auto;" /&gt;
+---
+
+- Then you can customise your graph based on combining dplyr, the pipe operator and ggplot2
+
+```r
+  np_visit %&gt;% # 
+  dplyr::filter(state == "CA" &amp; type == "National Park") %&gt;% 
+  dplyr::arrange(park_name, year) %&gt;%
+  ggplot(aes(x = year, y = visitors)) + 
+  geom_point() + 
+  xlab("Year") +
+  ylab("Annual Visitors") +
+  theme_bw() +
+  ggtitle("California National Parks Visitation") +
+  facet_wrap(~park_name)
+```
+
+---
+
+&lt;img src="Intro_to_R_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+https://cedricscherer.netlify.app/2019/05/17/the-evolution-of-a-ggplot-ep.-1/
+---
+## The pipe operator %&gt;%
+
+- The "pipe" (%&gt;%) is another friend  well worth learning how to use
+
+- The pipe will forward a value, or the result of an expression, into the next function call/expression. 
+
+
+```r
+# For instance a function to filter data can be written as:
+iris %&gt;%
+  dplyr::group_by(Species) %&gt;%
+  dplyr::summarize_if(is.numeric, mean) %&gt;%
+  ungroup() %&gt;%
+  gather(measure, value, -Species) %&gt;%
+  dplyr::arrange(value)
+```
+
+```
+## # A tibble: 12 x 3
+##    Species    measure      value
+##    &lt;fct&gt;      &lt;chr&gt;        &lt;dbl&gt;
+##  1 setosa     Petal.Width  0.246
+##  2 versicolor Petal.Width  1.33 
+##  3 setosa     Petal.Length 1.46 
+##  4 virginica  Petal.Width  2.03 
+##  5 versicolor Sepal.Width  2.77 
+##  6 virginica  Sepal.Width  2.97 
+##  7 setosa     Sepal.Width  3.43 
+##  8 versicolor Petal.Length 4.26 
+##  9 setosa     Sepal.Length 5.01 
+## 10 virginica  Petal.Length 5.55 
+## 11 versicolor Sepal.Length 5.94 
+## 12 virginica  Sepal.Length 6.59
+```
+Its legible in that you can read this as you would read normal prose (we read the %&gt;% as “and then”): “take iris and then group by and then summarise and then ungroup and then arrange.
+
+---
+##  Analysis: Write your own *fun*-ctions
+
+- Make the computer do the hard work
+- I.e take a manual job like extracting values from presentation output in excel
+        Turn this --&gt;  x 60 participants x 3 timepoints x 3 conditions
+
+&lt;center&gt;&lt;img src="images/excel_sheet.jpeg" height="400px"  width="550px" /&gt;&lt;/center&gt;
+
+---
+
+## Using this....
+
+```r
+load_ds_behav &lt;- function(filename) {
+  if (!file.exists(filename)) {
+    warning(paste("Missing", filename))
+    return(NULL)
+  }
+  pathA &lt;- dirname(filename)
+  folder1 &lt;- basename(pathA)
+  id&lt;- folder1  ## pull apart file name with bash style
+  
+  df &lt;- read.table(filename,header = TRUE, sep = "\t",fileEncoding= "ASCII") # create a dataframe
+  
+  df &lt;- mutate(df, sourcefile=filename, id=id, 
+               timepoint=timepoint, condition=condition)
+
+  acc_data&lt;-sum(df$Accuracy=="Correct")
+  df&lt;-mutate(df, accuracy=acc_data)
+  df&lt;-select(df, id, timepoint, condition, accuracy) 
+  df&lt;-head(df,1) 
+  return(df) } # Calculate accuracy and return df
+  
+  ## Now we have it working, instantly apply to everything
+  ds_df &lt;- map_df(ds_behav_files, load_ds_behav)
+```
+
+---
+## Into this.....
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; id &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; group &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; bl_pre &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; bl_post &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; bl_delay &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t1_pre &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t1_post &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t1_delay &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t2_pre &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; t2_post &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+## Or this...
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; id &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; group &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; timepoint &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; accuracy &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; BL_Delay &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; BL_Post &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; BL_Pre &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; T1_Delay &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; T1_Post &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; T1_Pre &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; T2_Delay &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; T2_Post &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; T2_Pre &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; BL_Delay &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## In SECONDS!!!!*
+
+ * after you have spent a couple of hundred thousand seconds creating the code...
+ 
+ 
+.center[
+![](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)
+]
+
+---
+# Statistics with R
+
+- Pretty much anything is possible
+
+- Assumption checking
+
+- Descriptive statistics
+
+- Categorical Data Analysis
+
+- GLMs, MLMs, Linear Regression
+
+- Bayesian statistcs
+
+- The list goes on and on.....
+
+  + https://learningstatisticswithr.com/
+
+---
+## R Markdown
+- Turn your analyses into high quality documents, reports, presentations and dashboards with R Markdown.
+
+&lt;center&gt;&lt;img src="images/rmarkdown.jpeg" height="350px"  width="400px" /&gt;&lt;/center&gt;
+
+---
+
+## R Markdown
+
+- Analyze. Share. Reproduce.
+
+- R Markdown documents are fully reproducible.
+
+- Use a productive notebook interface to weave together narrative text and code to produce elegantly formatted output.
+
+- Can embed multiple languages ⧉ including R, Python, and SQL.
+
+&lt;center&gt;&lt;img src="images/notebook-demo.jpeg" height="350px"  width="300px" /&gt;&lt;/center&gt;
+
+---
+## Hopefully now you're inspired...
+- Best time to start is now 
+
+- The following are some good places/resources
+
+- Ask me to send you my Intro to R email &amp; Useful packages list
+
+- Twitter (**virtual R buddies**)
+
+- R ladies (fantastic community and events)
+
+- Data Science Meetups (little more intense but often free food)
+
+- Stack Overflow (someone has always asked your question before you)
+
+- Youtube
+
+- Tidy Tuesday (https://www.tidytuesday.com/)
+
+---
+
+## ggplot2 specific resources
+
+- The Data Visualisation and Graphics for communication chapters in R for Data Science.
+  + https://r4ds.had.co.nz/
+  
+- Online course, try Data Visualization in R With ggplot2 by Kara Woo.
+
+- R Graphics Cookbook by Winston Chang
+
+- To help you choose which plot to use
+  + https://www.data-to-viz.com/
+  
+- General principles of data viz 
+  + https://docs.google.com/presentation/d/1EA_PfTiSXh8J0JH03d1pcA6luVJeN2oUGozxhZoiydQ/edit#slide=id.g7420956e08_0_139
+
+---
+## And always remember 
+- The road is long, the mountain is high and the view is great
+
+&lt;center&gt;&lt;img src="./images/learnprog.jpeg" height="400px" /&gt;&lt;/center&gt;
+
+
+---
+
+#save slides as PDF
+pagedown::chrome_print("/Users/han.coyle/Documents/Data Science/R/Intro_Pres/images/Intro_to_R.html")
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
